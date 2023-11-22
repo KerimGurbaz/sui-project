@@ -17,16 +17,16 @@ module suiProject::messenger{
 
     }
 
-    public entry fun create_messenger(name:vector<u8>, messaage:vector<u8>, to:address, ctx:&mut txContext){
+    public entry fun create_messenger(_: &Admin, name:vector<u8>, messaage:vector<u8>, to:address,from:address ctx:&mut txContext){
         let messenger= Messenger{
             id:object::new(ctx),
             name:string::utf8(name),
             message:string::utf8(message),
-            from: tx_context::sender(ctx),
+            from,
             to,
         };
 
-        transfer::transfer(messenger, tx_context::sender(ctx));
+        transfer::transfer(messenger, to);
     }
 
     fun init(ctx: &mut TxContext){
