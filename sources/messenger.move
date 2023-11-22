@@ -30,6 +30,10 @@ module suiProject::messenger{
     }
 
     fun init(ctx: &mut TxContext){
-        transfer::transfer(Admin(id:object::new(ctx)), tx_context::sender(ctx));
+        transfer::transfer(Admin{id:object::new(ctx)}, tx_context::sender(ctx));
+    }
+    #[test_only]
+    fun init_for_testing(ctx: &mut TxContext){
+        init(ctx);
     }
 }
